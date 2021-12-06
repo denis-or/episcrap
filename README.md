@@ -27,3 +27,16 @@ This is a basic example which shows you how to solve a common problem:
 # library(episcrap)
 ## basic example code
 ```
+
+## Author
+
+**Denis de Oliveira Rodrigues**
+
+Doutorando em Epidemiologia em Saúde Pública (ENSP/Fiocruz-RJ)
+
+Mestre em Epidemiologia em Saúde Pública (ENSP/Fiocruz-RJ)
+
+## License
+
+The scripts and documentation in this project are released under the
+[MIT License](LICENSE).
