@@ -1,8 +1,3 @@
-# codificacao padrao do Ministerio
-url <- "https://imunizacao-es.saude.gov.br/_search"
-usuario <- "imunizacao_public"
-senha <- "qlto5t&7r_@+#Tlstigi"
-
 # corpo da requisicao
 body <- list(
   size = 0,
@@ -10,7 +5,7 @@ body <- list(
     f1 = list(
       terms = list(
         field = "paciente_endereco_coIbgeMunicipio",
-        size = 5600
+        size = 6000
       ),
       aggs = list(
         f2 = list(
@@ -25,14 +20,14 @@ body <- list(
 )
 
 # pegar a base
-r <- httr::POST(url = url,
-                httr::authenticate(usuario, senha),
+r <- httr::POST(url = Sys.getenv("url"),
+                httr::authenticate(Sys.getenv("usuario"), Sys.getenv("senha")),
                 body = body,
                 encode = "json") |>
   httr::content(simplifyDataFrame = T)
 
 # executar a primeira formatacao da base
-banco_mun <- purrr::pluck(r4,"aggregations","f1","buckets")|>
+banco_mun <- purrr::pluck(r,"aggregations","f1","buckets")|>
   tidyr::unnest(f2)|>
   tidyr::unnest(buckets, names_repair = "unique", keep_empty = T)|>
   dplyr::select(cod_mun = key...1, dose = key...5, n = doc_count...6)|>
