@@ -1,3 +1,6 @@
+# Carregar pacote
+pkgload::load_all()
+
 # corpo da requisicao
 body <- list(
   size = 0,
