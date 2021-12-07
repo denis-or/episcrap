@@ -1,58 +1,14 @@
-scrape_vaccine <- function(){
+# Carregar pacote
+pkgload::load_all()
 
-  # Carregar pacote
-  pkgload::load_all()
+banco_mun <- scrape_vaccine()
 
+# exportar csv
+write.csv(banco_mun, "inst/base_vacina_mun.csv")
 
-  # corpo da requisicao
-  body <- list(
-    size = 0,
-    aggs = list(
-      f1 = list(
-        terms = list(
-          field = "paciente_endereco_coIbgeMunicipio",
-          size = 6000
-        ),
-        aggs = list(
-          f2 = list(
-            terms = list(
-              field = "vacina_descricao_dose.keyword",
-              size = 20
-            )
-          )
-        )
-      )
-    )
-  )
+# escrever a mensagem de commit
+commit_message <-
+  paste0("[GitHub Actions] Base atualizada em ", Sys.time() )
 
-  # pegar a base
-  r <- httr::POST(
-    url = Sys.getenv("SCRAP_URL"),
-    httr::authenticate(Sys.getenv("SCRAP_USUARIO"), Sys.getenv("SCRAP_SENHA")),
-    body = body,
-    encode = "json") |>
-    httr::content(simplifyDataFrame = T)
-
-  # executar a primeira formatacao da base
-  banco_mun <- purrr::pluck(r, "aggregations", "f1", "buckets") |>
-    dplyr::rename("cod_mun" = "key", "n_total" = "doc_count") |>
-    tidyr::unnest(.data$f2) |>
-    tidyr::unnest(buckets, names_repair = "unique", keep_empty = T) |>
-    dplyr::rename("dose" = "key", "n" = "doc_count") |>
-    dplyr::select(.data$cod_mun, .data$dose, .data$n) |>
-    dplyr::arrange(.data$cod_mun, .data$dose) |>
-    tidyr::pivot_wider(names_from = .data$dose, values_from = .data$n) |>
-    janitor::clean_names()
-
-
-  # escrever a mensagem de commit
-  commit_message <-
-    paste0("[GitHub Actions] Base atualizada em ", Sys.time() )
-
-  # salvar a mensagem de commit
-  writeLines(commit_message, "mensagem-comit.txt")
-
-  # exportar csv
-  write.csv(banco_mun, "inst/base_vacina_mun.csv")
-
-}
+# salvar a mensagem de commit
+writeLines(commit_message, "mensagem-comit.txt")
