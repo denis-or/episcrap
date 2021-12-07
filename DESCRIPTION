@@ -17,6 +17,7 @@ Imports:
     janitor,
     jsonlite,
     purrr,
+    readr,
     tidyr
 LazyData: true
 Suggests: 
