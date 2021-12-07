@@ -28,9 +28,11 @@ r <- httr::POST(url = Sys.getenv("url"),
 
 # executar a primeira formatacao da base
 banco_mun <- purrr::pluck(r,"aggregations","f1","buckets")|>
+  dplyr::rename(cod_mun = key, n_total = doc_count)|>
   tidyr::unnest(f2)|>
   tidyr::unnest(buckets, names_repair = "unique", keep_empty = T)|>
-  dplyr::select(cod_mun = key...1, dose = key...5, n = doc_count...6)|>
+  dplyr::rename(dose = key, n = doc_count)|>
+  dplyr::select(cod_mun, dose, n)|>
   dplyr::arrange(cod_mun, dose)|>
   tidyr::pivot_wider(names_from = dose, values_from = n)|>
   janitor::clean_names()
