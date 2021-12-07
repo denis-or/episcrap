@@ -1,7 +1,7 @@
 scrape_vaccine <- function(){
 
   # Carregar pacote
-  # pkgload::load_all()
+  pkgload::load_all()
 
 
   # corpo da requisicao
