@@ -21,16 +21,18 @@ devtools::install_github("denis-or/episcrap")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to get the vaccine data:
 
 ``` r
 # library(episcrap)
-## basic example code
+# basic example code
+# banco_vacina_municipios <- get_data_vaccine()
+# View(banco_vacina_municipios)
 ```
 
 ## Author
 
-**Denis de Oliveira Rodrigues**
+*Denis de Oliveira Rodrigues*
 
 Doutorando em Epidemiologia em Saúde Pública (ENSP/Fiocruz-RJ)
 

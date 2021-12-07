@@ -7,6 +7,7 @@ output: github_document
 # episcrap
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of `episcrap` is to scrape some data for my epidemiological studies.
@@ -22,22 +23,22 @@ devtools::install_github("denis-or/episcrap")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to get the vaccine data:
 
 ```{r example}
 # library(episcrap)
-## basic example code
+# basic example code
+# banco_vacina_municipios <- get_data_vaccine()
+# View(banco_vacina_municipios)
 ```
-
 
 ## Author
 
-_*Denis de Oliveira Rodrigues*_
+*Denis de Oliveira Rodrigues*
 
 Doutorando em Epidemiologia em Saúde Pública (ENSP/Fiocruz-RJ)
 
 Mestre em Epidemiologia em Saúde Pública (ENSP/Fiocruz-RJ)
-
 
 ## License
 

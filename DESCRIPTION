@@ -1,10 +1,10 @@
 Package: episcrap
-Title: scrape some data for my epidemiological studies
+Title: Data vaccine 
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "catoper@gmail.com", role = c("aut", "cre"),
+    person("Denis", "Rodrigues", , "catoper@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: scrape some data for my epidemiological studies
+Description: scrape some data for my epidemiological studies.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -18,3 +18,7 @@ Imports:
     jsonlite,
     purrr,
     tidyr
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
