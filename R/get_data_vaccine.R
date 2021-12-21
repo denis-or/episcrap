@@ -1,13 +1,3 @@
-get_data_vaccine <- function(){
-
-  # banco_mun <- readr::read_csv("https://raw.githubusercontent.com/denis-or/episcrap/master/inst/base_vacina_mun.csv")
-  banco_mun <- scrape_vaccine()
-
-  banco_mun
-
-}
-
-
 scrape_vaccine <- function(){
 
 
@@ -35,7 +25,8 @@ scrape_vaccine <- function(){
   # pegar a base
   r <- httr::POST(
     url = Sys.getenv("SCRAP_URL"),
-    httr::authenticate(Sys.getenv("SCRAP_USUARIO"), Sys.getenv("SCRAP_SENHA")),
+    httr::authenticate(user = Sys.getenv("SCRAP_USUARIO"),
+                       password = Sys.getenv("SCRAP_SENHA")),
     body = body,
     encode = "json") |>
     httr::content(simplifyDataFrame = T)
@@ -50,6 +41,16 @@ scrape_vaccine <- function(){
     dplyr::arrange(.data$cod_mun, .data$dose) |>
     tidyr::pivot_wider(names_from = .data$dose, values_from = .data$n) |>
     janitor::clean_names()
+
+  banco_mun
+
+}
+
+
+get_data_vaccine <- function(){
+
+  # banco_mun <- readr::read_csv("https://raw.githubusercontent.com/denis-or/episcrap/master/inst/base_vacina_mun.csv")
+  banco_mun <- scrape_vaccine()
 
   banco_mun
 
