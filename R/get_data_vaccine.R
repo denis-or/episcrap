@@ -8,18 +8,19 @@ scrape_vaccine <- function(){
       f1 = list(
         terms = list(
           field = "paciente_endereco_coIbgeMunicipio",
-          size = 6000
+          size = 7000
         ),
         aggs = list(
           f2 = list(
             terms = list(
-              field = "vacina_descricao_dose.keyword",
-              size = 20
+              field = "vacina_descricao_dose", #retirei o ponto keyword
+              size = 30
             )
           )
         )
       )
     )
+
   )
 
   # pegar a base
@@ -28,6 +29,7 @@ scrape_vaccine <- function(){
     httr::authenticate(user = Sys.getenv("SCRAP_USUARIO"),
                        password = Sys.getenv("SCRAP_SENHA")),
     body = body,
+    httr::config(connecttimeout = 60),
     encode = "json") |>
     httr::content(simplifyDataFrame = T)
 
@@ -35,7 +37,7 @@ scrape_vaccine <- function(){
   banco_mun <- purrr::pluck(r, "aggregations", "f1", "buckets") |>
     dplyr::rename("cod_mun" = "key", "n_total" = "doc_count") |>
     tidyr::unnest(.data$f2) |>
-    tidyr::unnest(buckets, names_repair = "unique", keep_empty = T) |>
+    tidyr::unnest(.data$buckets, names_repair = "unique", keep_empty = T) |>
     dplyr::rename("dose" = "key", "n" = "doc_count") |>
     dplyr::select(.data$cod_mun, .data$dose, .data$n) |>
     dplyr::arrange(.data$cod_mun, .data$dose) |>
@@ -50,7 +52,7 @@ scrape_vaccine <- function(){
 get_data_vaccine <- function(){
 
   # banco_mun <- readr::read_csv("https://raw.githubusercontent.com/denis-or/episcrap/master/inst/base_vacina_mun.csv")
-  banco_mun <- scrape_vaccine()
+  banco_mun <- episcrap::scrape_vaccine()
 
   banco_mun
 

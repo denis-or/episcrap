@@ -14,11 +14,11 @@ BugReports: https://github.com/denis-or/episcrap/issues
 Imports: 
     dplyr,
     httr,
+    purrr,
     janitor,
     jsonlite,
-    purrr,
-    readr,
-    tidyr
+    tidyr,
+    pkgload
 LazyData: true
 Suggests: 
     testthat (>= 3.0.0)
