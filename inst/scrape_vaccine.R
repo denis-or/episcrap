@@ -1,7 +1,7 @@
 # Carregar pacote
 pkgload::load_all()
 
-banco_mun <- episcrap::scrape_vaccine()
+banco_mun <- episcrap::get_data_vaccine()
 
 # exportar csv
 write.csv(banco_mun, "inst/base_vacina_mun.csv")

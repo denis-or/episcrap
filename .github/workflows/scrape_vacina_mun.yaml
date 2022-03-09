@@ -18,9 +18,6 @@ jobs:
     env:
       RSPM: "https://packagemanager.rstudio.com/all/__linux__/bionic/latest"
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      SCRAP_URL: ${{ secrets.SCRAP_URL }}
-      SCRAP_USUARIO: ${{ secrets.SCRAP_USUARIO }}
-      SCRAP_SENHA: ${{ secrets.SCRAP_SENHA }}
 
     steps:
       - uses: actions/checkout@v2
@@ -56,6 +53,11 @@ jobs:
         shell: Rscript {0}
 
       - name: Execute Script
+        env:
+          SCRAP_URL: ${{ secrets.SCRAP_URL }}
+          SCRAP_USUARIO: ${{ secrets.SCRAP_USUARIO }}
+          SCRAP_SENHA: ${{ secrets.SCRAP_SENHA }}
+
         run: |
           Rscript "inst/scrape_vaccine.R"
 
