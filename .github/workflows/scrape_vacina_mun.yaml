@@ -51,9 +51,6 @@ jobs:
           pak::local_install(".")
         shell: Rscript {0}
 
-      - name: Install cURL Headers
-        run: sudo apt-get install libcurl4-openssl-dev
-
       - name: Execute Script
         env:
           SCRAP_URL: ${{ secrets.SCRAP_URL }}
