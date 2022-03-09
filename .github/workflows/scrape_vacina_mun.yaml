@@ -6,12 +6,12 @@ on:
     branches: [main, master]
 
 
-name: scrape_disaster
+name: scrape_vacina_mun
 
 jobs:
   render:
 
-    name: scrape_disaster
+    name: scrape_vacina_mun
 
     runs-on: ubuntu-18.04
 
