@@ -21,8 +21,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@v1
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-r@v2
 
       - name: Install pak and query dependencies
         run: |
@@ -52,6 +51,9 @@ jobs:
           pak::local_install(".")
         shell: Rscript {0}
 
+      - name: Install cURL Headers
+        run: "sudo apt-get install libcurl4-openssl-dev""
+
       - name: Execute Script
         env:
           SCRAP_URL: ${{ secrets.SCRAP_URL }}
@@ -61,7 +63,7 @@ jobs:
         run: |
           Rscript "inst/scrape_vaccine.R"
 
-      - name: Commit results
+     - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
