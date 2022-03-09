@@ -1,17 +1,17 @@
 on:
   schedule:
 
-    - cron:  '0 */6 * * *'
+    - cron:  '30 23 */3 * *'
   workflow_dispatch:
     branches: [main, master]
 
 
-name: scrape_vacina_mun
+name: scrape_disaster
 
 jobs:
   render:
 
-    name: scrape_vacina_mun
+    name: scrape_disaster
 
     runs-on: ubuntu-18.04
 
