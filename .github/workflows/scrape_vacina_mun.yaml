@@ -52,7 +52,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Install cURL Headers
-        run: "sudo apt-get install libcurl4-openssl-dev"
+        run: sudo apt-get install libcurl4-openssl-dev
 
       - name: Execute Script
         env:
