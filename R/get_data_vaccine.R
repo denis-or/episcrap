@@ -44,6 +44,41 @@ scrape_vaccine <- function(){
     tidyr::pivot_wider(names_from = .data$dose, values_from = .data$n) |>
     janitor::clean_names()
 
+  banco_mun <- banco_mun |>
+    dplyr::rowwise() |>
+    dplyr::mutate(
+      dose1 = sum(
+        x1a_dose_revacinacao,
+        x1a_dose,
+        dose,
+        dose_inicial,
+        tratamento_com_uma_dose,
+        na.rm = T
+      ),
+      dose2 = sum(
+        x2a_dose,
+        x2a_dose_revacinacao,
+        unica,
+        na.rm = T
+      ),
+
+      reforco_ = sum(
+        x3a_dose,
+        x4a_dose,
+        x1o_reforco,
+        dose_adicional,
+        reforco,
+        x2o_reforco,
+        x3a_dose_revacinacao,
+        x3o_reforco,
+        revacinacao,
+        tratamento_com_dezessete_doses,
+        na.rm = T
+      )
+    ) |>
+    dplyr::select(cod_mun, dose1, dose2, reforco_) |>
+    dplyr::mutate(dplyr::across(where(is.numeric), ~tidyr::replace_na(., 0)))
+
   banco_mun
 
 }
